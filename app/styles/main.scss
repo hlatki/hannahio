@@ -1,31 +1,86 @@
-//@import 'typeplate/scss/typeplate';
 
 $hannah-dark-green: #39b54a; 
 $hannah-light-green: #a2dcaa;
 $hannah-yellow: #ffd800;
 
+$small-screen-max: 400px;
+$regular-screen-min: 700px;
+
+/* assumes font-size has been set to ~ 10px  */
+$regular-font-size: 1.8em;
+$small-font-size: .8em;
+$medium-font-size: 1.3em;
+
+
+/* Mixins for responsive design */
+@mixin calculate-font-sizing ($font-size) {
+    font-size: $font-size;
+    line-height: $font-size * 1.2;
+}
+@mixin regular-width-window {
+    width: 600px;
+    padding: 60px;
+    margin: 50px auto 0 auto;
+    border-radius: 6px;
+    
+    .hero-unit h1 {
+        @include calculate-font-sizing($regular-font-size * 2.5)
+    }
+}
+
+@mixin small-width-window {
+    width: 200px;
+    padding: 20px;
+    margin: 30px auto 0 auto;
+    border-radius: 2px;
+    
+    .hero-unit h1 {
+        @include calculate-font-sizing($small-font-size * 2.5)
+    }
+}
+
+@mixin medium-width-window {
+    width: 300px;
+    padding: 20px;
+    margin: 30px auto 0 auto;
+    border-radius: 2px;
+    
+    .hero-unit h1 {
+        @include calculate-font-sizing($small-font-size * 2.5)
+    }
+}
+
 body {
     background: #fafafa;
     background-image: url("../images/tree_bark.png");
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+    color: #444;
+    font-size: 62.5%;
+    font-weight: normal;
 }
 
 .hero-unit {
-    margin: 50px auto 0 auto;
-    width: 600px;
-    font-size: 18px;
+    @media (max-width: $small-screen-max) {
+        @include calculate-font-sizing($small-font-size);
+        @include small-width-window;
+    }
+    @media (min-width: $small-screen-max + 1) and (min-width: $regular-screen-min + 1) {
+        @include calculate-font-sizing($medium-font-size);
+        @include medium-width-window;
+    }
+    @media (min-width: $regular-screen-min) {
+        @include calculate-font-sizing($regular-font-size);
+        @include regular-width-window;
+    }
+
     font-weight: 200;
-    line-height: 30px;
     background-color: #fff;
-    border-radius: 6px;
-    padding: 60px;
 }
 
+
 .hero-unit h1 {
-    font-size: 60px;
-    line-height: 1;
     letter-spacing: -1px;
+    color: #222;
 }
 
 .browsehappy {
